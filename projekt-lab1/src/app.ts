@@ -11,6 +11,7 @@ class CalcApp {
     constructor() {
         this.startApp();
     }
+    
 
     startApp() {
         this.getInputs();
