@@ -1,59 +1,59 @@
+interface Displays {
+    sum: HTMLInputElement;
+    avg: HTMLInputElement;
+    max: HTMLInputElement;
+    min: HTMLInputElement;
+}
+
 class CalcApp {
-    dataInput1: HTMLInputElement;
-    dataInput2: HTMLInputElement;
-    dataInput3: HTMLInputElement;
-    dataInput4: HTMLInputElement;
-    sumInput: HTMLInputElement;
-    avgInput: HTMLInputElement;
-    maxInput: HTMLInputElement;
-    minInput: HTMLInputElement;
+    arrInputData: HTMLInputElement[] = [];
+    displays: Displays;
 
     constructor() {
+        this.computeData = this.computeData.bind(this);
         this.startApp();
     }
     
-
     startApp() {
         this.getInputs();
         this.inputValueEvents();
     }
 
     getInputs() {
-        this.dataInput1 = document.querySelector('#input1');
-        this.dataInput2 = document.querySelector('#input2');
-        this.dataInput3 = document.querySelector('#input3');
-        this.dataInput4 = document.querySelector('#input4');
-        this.sumInput = document.querySelector('#sum');
-        this.avgInput = document.querySelector('#avg');
-        this.maxInput = document.querySelector('#max');
-        this.minInput = document.querySelector('#min');
+        for (let i = 0; i < 4; i++) {
+            this.arrInputData.push(<HTMLInputElement>document.querySelector(`#input${i}`));
+        }
+
+        // for (let elem of ["sum", "avg", "max", "min"]) {
+        //     this.displays[elem] = document.querySelector(`#${elem}`)
+        // }
+
+        for (let elem in this.displays) {
+            this.displays[elem] = document.querySelector(`#${elem}`)
+        }
     }
 
     inputValueEvents() {
-        this.dataInput1.addEventListener("input", () => this.computeData());
-        this.dataInput2.addEventListener("input", () => this.computeData());
-        this.dataInput3.addEventListener("input", () => this.computeData());
-        this.dataInput4.addEventListener("input", () => this.computeData());
+        for (let element of this.arrInputData) {
+            element.addEventListener("input", this.computeData);
+        }
     }
 
     computeData() {
-        const d1 = +this.dataInput1.value;
-        const d2 = +this.dataInput2.value;
-        const d3 = +this.dataInput3.value;
-        const d4 = +this.dataInput4.value;
-        const sum = d1 + d2 + d3 + d4;
-        const avg = sum / 4;
-        const max = Math.max(d1, d2, d3, d4);
-        const min = Math.min(d1, d2, d3, d4);
+        const values = this.arrInputData.filter(el => el.value.length > 0).map(el => +el.value);
+        const sum = values.reduce((a, b) => a + b);
+        const avg = sum / values.length;
+        const max = Math.max(...values);
+        const min = Math.min(...values);
 
         this.showNewInputs(sum, avg, max, min);
     }
 
     showNewInputs(sum: number, avg: number, max: number, min: number) {
-        this.sumInput.value = sum.toString();
-        this.avgInput.value = avg.toString();
-        this.maxInput.value = max.toString();
-        this.minInput.value = min.toString();
+        this.displays.sum.value = ""+sum;
+        this.displays.avg.value = ""+avg;
+        this.displays.max.value = ""+max;
+        this.displays.min.value = ""+min;
     }
 }
 const calcApp = new CalcApp();
