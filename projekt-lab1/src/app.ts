@@ -31,7 +31,7 @@ class CalcApp {
   generateInputs() {
     this.inputData = <HTMLDivElement>document.querySelector(".inputData");
     this.inputEl = <HTMLInputElement>document.getElementById("userInput");
-    this.loadingEl = document.querySelector(".loading-container");
+    this.loadingEl = <HTMLDivElement>document.querySelector(".loading-container");
 
     this.inputEl.addEventListener("focus", () => {
       this.loadingEl.style.display = "flex";
@@ -42,7 +42,6 @@ class CalcApp {
       const amount = +this.inputEl.value;
       this.inputData.innerHTML = "";
       this.arrInputData = [];
-      this.loadingEl = document.querySelector(".loading-container");
       this.loadingEl.style.display = "none";
       this.inputData.style.display = "block";
 
