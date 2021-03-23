@@ -4,6 +4,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    background-color: #161B22;
+    color: #F0F6FC;
 }
 
 .userInput-section {
@@ -12,30 +14,14 @@
     padding: 15px;
 }
 
-#clearButton {
+.userInput-section button {
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .loading-container {
     display: none;
     justify-content: center;
-}
-
-.buttonload {
-    background-color: white;
-    /* Green background */
-    border: none;
-    /* Remove borders */
-    color: #4d4d4d;
-    /* White text */
-    padding: 12px 16px;
-    /* Some padding */
-    font-size: 16px;
-    /* Set a font size */
-}
-
-.buttonload i {
-    margin-right: 10px;
 }
 
 .inputData {
@@ -51,6 +37,10 @@
     margin: 10px;
 }
 
+.inputData input[type="checkbox"] {
+    margin-left: 0;
+}
+
 .newData {
     display: flex;
     justify-content: space-between;
@@ -61,6 +51,25 @@
     margin-right: auto;
 }
 
-.newData input {
-    margin: 10px;
+.data-container {
+    display: flex;
+    align-items: center;
+    margin: 15px;
+}
+
+.data-container span {
+    margin-right: 10px;
+}
+
+
+input {
+    border-radius: 3px;
+    border: 1px solid #F0F6FC;
+    padding-left: 5px;
+}
+
+button {
+    border-radius: 3px;
+    border: 3px solid #F0F6FC;
+    padding: 3px;
 }
