@@ -16,6 +16,8 @@ class CalcApp {
   inputValue: Number;
   clearButton: HTMLButtonElement;
   loadingEl: HTMLDivElement;
+  checkbox: HTMLInputElement;
+  input: HTMLInputElement;
 
   constructor() {
     this.computeData = this.computeData.bind(this);
@@ -97,19 +99,20 @@ class CalcApp {
 
     this.clearButton.addEventListener("click", () => {
       for (let i = 0; i < amount; i++) {
-        const checkbox: HTMLInputElement = <HTMLInputElement>(
+        this.checkbox = <HTMLInputElement>(
           document.getElementById(`checkbox${i}`)
         );
-        const input: HTMLInputElement = <HTMLInputElement>(
+        this.input = <HTMLInputElement>(
           document.getElementById(`input${i}`)
         );
-        if (checkbox.checked) {
+      }
+
+      if (this.checkbox.checked) {
           console.log("true");
-          input.value = "";
+          this.input.value = "";
         } else {
           return;
         }
-      }
     });
   }
 }
