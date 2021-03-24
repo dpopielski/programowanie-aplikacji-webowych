@@ -16,8 +16,6 @@ class CalcApp {
   inputValue: Number;
   clearButton: HTMLButtonElement;
   loadingEl: HTMLDivElement;
-  checkbox: HTMLInputElement;
-  input: HTMLInputElement;
 
   constructor() {
     this.computeData = this.computeData.bind(this);
@@ -51,6 +49,7 @@ class CalcApp {
         const input = document.createElement("input");
         const checkbox = document.createElement("input");
         input.id = `input${i}`;
+        input.className = "dataInput";
         input.type = "number";
         checkbox.id = `checkbox${i}`;
         checkbox.type = "checkbox";
@@ -95,24 +94,26 @@ class CalcApp {
     this.clearButton = <HTMLButtonElement>(
       document.getElementById("clearButton")
     );
-    const amount = +this.inputEl.value;
 
     this.clearButton.addEventListener("click", () => {
+      const amount = +this.inputEl.value;
       for (let i = 0; i < amount; i++) {
-        this.checkbox = <HTMLInputElement>(
+        const checkbox = <HTMLInputElement>(
           document.getElementById(`checkbox${i}`)
         );
-        this.input = <HTMLInputElement>(
+        const input = <HTMLInputElement>(
           document.getElementById(`input${i}`)
         );
-      }
 
-      if (this.checkbox.checked) {
-          console.log("true");
-          this.input.value = "";
-        } else {
-          return;
+        if (checkbox?.checked === true) { 
+          
+          this.inputData.removeChild(input);
+          this.inputData.removeChild(checkbox);
+          this.arrInputData = <HTMLInputElement[]>[...document.querySelectorAll("input.dataInput")];
+          this.computeData();
+          this.inputEl.value = ""+this.arrInputData.length;
         }
+      }
     });
   }
 }
