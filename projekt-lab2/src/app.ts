@@ -38,9 +38,9 @@ export class App {
 
     playSound(key: string) {
         switch (key) {
-            case 'a':
-                this.clapSound.currentTime = 0;
-                this.clapSound.play();
+            case 'q':
+                this.boomSound.currentTime = 0;
+                this.boomSound.play();
                 break;
             case 's':
                 this.boomSound.currentTime = 0;

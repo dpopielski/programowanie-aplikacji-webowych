@@ -8,22 +8,85 @@
   <body>
     <div class="drumPad">
       <div class="drumPad__wrapper">
-        <audio
-          crossorigin="anonymous"
-          src="assets/sounds/clap.wav"
-          data-sound="clap"
-        ></audio>
-        <audio
-          crossorigin="anonymous"
-          src="assets/sounds/boom.wav"
-          data-sound="boom"
-        ></audio>
-        <audio
-          crossorigin="anonymous"
-          src="assets/sounds/hihat.wav"
-          data-sound="hihat"
-        ></audio>
-        <button id="playChannel1">Play channel 1</button>
+        <div class="drumPad__wrapper-header">
+          <button class="playChannel" id="playChannel1">Channel 1</button>
+          <button class="playChannel" id="playChannel2">Channel 2</button>
+          <button class="playChannel" id="playChannel3">Channel 3</button>
+        </div>
+        <div class="drumPad__wrapper-grid-template">
+          <button class="drumPad__wrapper-button">
+            q
+            <audio
+              crossorigin="anonymous"
+              src="assets/sounds/boom.wav"
+              data-sound="boom"
+            ></audio>
+          </button>
+          <button class="drumPad__wrapper-button">
+            w
+            <audio
+              crossorigin="anonymous"
+              src="assets/sounds/boom.wav"
+              data-sound="boom"
+            ></audio>
+          </button>
+          <button class="drumPad__wrapper-button">
+            e
+            <audio
+              crossorigin="anonymous"
+              src="assets/sounds/hihat.wav"
+              data-sound="hihat"
+            ></audio>
+          </button>
+          <button class="drumPad__wrapper-button">
+            a
+            <audio
+              crossorigin="anonymous"
+              src="assets/sounds/clap.wav"
+              data-sound="clap"
+            ></audio>
+          </button>
+          <button class="drumPad__wrapper-button">
+            s
+            <audio
+              crossorigin="anonymous"
+              src="assets/sounds/boom.wav"
+              data-sound="boom"
+            ></audio>
+          </button>
+          <button class="drumPad__wrapper-button">
+            d
+            <audio
+              crossorigin="anonymous"
+              src="assets/sounds/hihat.wav"
+              data-sound="hihat"
+            ></audio>
+          </button>
+          <button class="drumPad__wrapper-button">
+            z
+            <audio
+              crossorigin="anonymous"
+              src="assets/sounds/clap.wav"
+              data-sound="clap"
+            ></audio>
+          </button>
+          <button class="drumPad__wrapper-button">
+            x
+            <audio
+              crossorigin="anonymous"
+              src="assets/sounds/boom.wav"
+              data-sound="boom"
+            ></audio>
+          </button>
+          <button class="drumPad__wrapper-button">
+            c
+            <audio
+              crossorigin="anonymous"
+              src="assets/sounds/hihat.wav"
+              data-sound="hihat"
+            ></audio>
+          </button>
+        </div>
       </div>
     </div>
     <script src="index.js"></script>
