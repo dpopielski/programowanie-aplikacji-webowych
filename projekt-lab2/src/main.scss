@@ -10,6 +10,10 @@ body {
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: none;
+}
+
 .drumPad {
   width: 600px;
   height: 650px;
@@ -48,8 +52,15 @@ body {
           rgba(0, 0, 0, 0.23) 0px 3px 6px;
         border: 0;
         border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        box-shadow: none;
+        transition: linear 0.3s;
       }
     }
+
     &-grid-template {
       background-color: #dee0e6;
       height: 65%;
@@ -60,6 +71,7 @@ body {
       gap: 15px;
       border-radius: 5px;
     }
+
     &-button {
       color: #dee0e6;
       background-color: #f4f4f4;
@@ -67,8 +79,12 @@ body {
         rgba(0, 0, 0, 0.23) 0px 3px 6px;
       border: 0;
       border-radius: 5px;
+      cursor: pointer;
     }
+
     &-button:hover {
+      box-shadow: none;
+      transition: linear 0.3s;
     }
   }
 }
