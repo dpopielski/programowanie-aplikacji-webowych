@@ -40,19 +40,38 @@ body {
       height: 30%;
       margin-bottom: 5%;
       background-color: #ffffff;
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-start;
       border-radius: 5px;
+      padding: 15px;
 
-      button {
-        padding: 15px;
-        background-color: #f4f4f4;
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
-          rgba(0, 0, 0, 0.23) 0px 3px 6px;
-        border: 0;
-        border-radius: 5px;
-        cursor: pointer;
+      .channelBtnWrapper {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin-bottom: 15px;
+        .playChannel {
+          padding: 15px;
+          background-color: #f4f4f4;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+          border: 0;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+
+      .recBtnWrapper {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        .recBtn {
+          padding: 10px;
+          background-color: rgb(176, 0, 0);
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+          border: 0;
+          border-radius: 40px;
+          cursor: pointer;
+        }
       }
 
       button:hover {
