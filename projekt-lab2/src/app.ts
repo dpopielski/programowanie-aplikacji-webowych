@@ -10,6 +10,8 @@ export class App {
     tomSound: HTMLAudioElement;
 
     channel1: any[] = [];
+    channel2: any[] = [];
+    channel3: any[] = [];
     drumPadBtn: HTMLButtonElement;
 
     constructor() {
@@ -21,11 +23,28 @@ export class App {
         window.addEventListener('keydown', this.onKeyDown);
         const btnPlayChannel1 = document.querySelector('#playChannel1');
         btnPlayChannel1.addEventListener('click', this.onPlayChannel1);
+        const btnPlayChannel2 = document.querySelector('#playChannel2');
+        btnPlayChannel2.addEventListener('click', this.onPlayChannel2);
+        const btnPlayChannel3 = document.querySelector('#playChannel3');
+        btnPlayChannel3.addEventListener('click', this.onPlayChannel3);
+        this.playSoundOnClick();
         this.getAudioTags();
     }
 
     onPlayChannel1(): void {
         this.channel1.forEach(sound => {
+            setTimeout(() => this.playSound(sound.key), sound.time);
+        });
+    }
+
+    onPlayChannel2(): void {
+        this.channel2.forEach(sound => {
+            setTimeout(() => this.playSound(sound.key), sound.time);
+        });
+    }
+
+    onPlayChannel3(): void {
+        this.channel3.forEach(sound => {
             setTimeout(() => this.playSound(sound.key), sound.time);
         });
     }
@@ -88,6 +107,15 @@ export class App {
                 this.tomSound.currentTime = 0;
                 this.tomSound.play();
                 break;
+        }
+    }
+
+    playSoundOnClick() {
+        for (let i = 0; i < 10; i++){
+            const soundBtns = document.querySelector(`#soundBtn${i}`);
+            soundBtns.addEventListener('click', () => {
+                
+            })
         }
     }
 }

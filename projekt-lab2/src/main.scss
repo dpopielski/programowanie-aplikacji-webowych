@@ -37,6 +37,9 @@ body {
     border-radius: 5px;
 
     &-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
       height: 30%;
       margin-bottom: 5%;
       background-color: #ffffff;
@@ -47,7 +50,6 @@ body {
         display: flex;
         justify-content: space-around;
         width: 100%;
-        margin-bottom: 15px;
         .playChannel {
           padding: 15px;
           background-color: #f4f4f4;
@@ -63,9 +65,10 @@ body {
         display: flex;
         justify-content: space-around;
         width: 100%;
+
         .recBtn {
           padding: 10px;
-          background-color: rgb(176, 0, 0);
+          background-color: rgb(232, 57, 57);
           box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
             rgba(0, 0, 0, 0.23) 0px 3px 6px;
           border: 0;
@@ -74,9 +77,10 @@ body {
         }
       }
 
-      button:hover {
-        box-shadow: none;
-        transition: linear 0.3s;
+      .OnOffWrapper {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
       }
     }
 
