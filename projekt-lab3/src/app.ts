@@ -7,12 +7,25 @@ export class App {
     divEl: HTMLDivElement;
     div: HTMLDivElement;
 
+
     opwApiKey = '5b79fbaa68996f9d274495718e36e03a';
+
     constructor() {
         this.mainBtn = <HTMLButtonElement>document.getElementById("mainBtn");
         this.divContainer = <HTMLDivElement>document.getElementById("container");
-        const usedTowns: string[] = [];  
+        const closeIcon = <HTMLElement>document.getElementById('closeIcon');
+        const arrData: string[] = this.getData();
+        const usedTowns: string[] = arrData; 
+
+        for (let elem of arrData) {
+            this.generateInfo(elem);
+        }
+
+        console.log(usedTowns);
         
+        // closeIcon.addEventListener('click', () => {
+            
+        // })
 
         this.mainBtn.addEventListener('click', () => {
             let isInclude = false;
@@ -24,12 +37,12 @@ export class App {
 
             if (isInclude) { return console.log("Takie miasto jest już dodane!") };
 
-            this.generateInfo();
+            this.generateInfo(this.cityName);
             
             usedTowns.push(this.cityName);
-
-            this.saveData(this.cityName);
+            this.saveData([...usedTowns]);
         }) 
+        
     }
     async getCityInfo(city: string) {
         const weather = await this.getWeather(city);
@@ -54,12 +67,13 @@ export class App {
             return {};
         }
     }
-    generateInfo() {
-        this.getWeather(this.cityName)
+    generateInfo(city: string) {
+        this.getWeather(city)
             .then(data => {
                 this.div = document.createElement("div");
                 this.div.id = 'weatherBox';
                 this.div.innerHTML = `
+                    <i id="closeIcon" class="far fa-window-close fa-lg"></i>
                     <span>Miasto: ${data.name}</span>
                     <span>Kraj: ${data.sys.country}</span>
                     <span>Temperatura: ${Math.round(data.main.temp - 273.15)}°C</span>
