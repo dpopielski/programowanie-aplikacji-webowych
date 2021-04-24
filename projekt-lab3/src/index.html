@@ -7,11 +7,17 @@
   </head>
   <body>
     <header>
-      <span>Podaj Miasto:</span>
-      <input type="text" />
-      <button id="mainBtn">Dodaj</button>
+      <div>
+        <h2>Miasto:</h2>
+        <input id="input" type="text" onfocus="this.value=''" />
+        <button id="mainBtn">Dodaj</button>
+      </div>
     </header>
-    <main></main>
+    <main>
+      <div id="container">
+        <!-- <div id="weatherBox"></div> -->
+      </div>
+    </main>
     <script src="index.js"></script>
   </body>
 </html>

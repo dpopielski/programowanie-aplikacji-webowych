@@ -1,15 +1,39 @@
 export class App {
     inputEl: HTMLInputElement;
-    inputValue: string;
+    cityName: string;
     mainBtn: HTMLButtonElement;
+    weatherBox: HTMLDivElement;
+    divContainer: HTMLDivElement;
+    divEl: HTMLDivElement;
+    div: HTMLDivElement;
 
     opwApiKey = '5b79fbaa68996f9d274495718e36e03a';
     constructor() {
-        const cityName = this.getCityName();
-        this.getCityInfo(cityName);
+        this.mainBtn = <HTMLButtonElement>document.getElementById("mainBtn");
+        this.divContainer = <HTMLDivElement>document.getElementById("container");
+        const usedTowns: string[] = [];  
+        
+
+        this.mainBtn.addEventListener('click', () => {
+            let isInclude = false;
+            this.cityName = (<HTMLInputElement>document.getElementById("input")).value.toLowerCase();
+
+            for (let elem of usedTowns) {
+                elem === this.cityName ? isInclude = true : isInclude;
+            }
+
+            if (isInclude) { return console.log("Takie miasto jest już dodane!") };
+
+            this.generateInfo();
+            
+            usedTowns.push(this.cityName);
+
+            this.saveData(this.cityName);
+        }) 
     }
     async getCityInfo(city: string) {
-        const weather = await this.getWeather(this.inputValue);
+        const weather = await this.getWeather(city);
+        
         this.saveData(weather);
     }
     async getWeather(city: string): Promise<any> {
@@ -30,16 +54,19 @@ export class App {
             return {};
         }
     }
-    getCityName() {
-        this.mainBtn.addEventListener("click", () => {
-            this.inputEl = <HTMLInputElement>document.getElementById("input");
-            this.inputValue = ""+this.inputEl.value;
-        });
-        
-        return this.inputValue;
-    }
     generateInfo() {
-        const divEl = document.createElement('div');
-        const spanEl = document.createElement('span');
+        this.getWeather(this.cityName)
+            .then(data => {
+                this.div = document.createElement("div");
+                this.div.id = 'weatherBox';
+                this.div.innerHTML = `
+                    <span>Miasto: ${data.name}</span>
+                    <span>Kraj: ${data.sys.country}</span>
+                    <span>Temperatura: ${Math.round(data.main.temp - 273.15)}°C</span>
+                    <span>Ciśnienie: ${data.main.pressure}hPa</span>
+                    <span>Wiatr: ${data.wind.speed}km/h</span>
+                `;
+                this.divContainer.appendChild(this.div);
+            });       
     }
 }
