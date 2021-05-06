@@ -6,6 +6,7 @@ export class App {
     divContainer: HTMLDivElement;
     divEl: HTMLDivElement;
     div: HTMLDivElement;
+    usedTowns: string[] = [];
 
 
     opwApiKey = '5b79fbaa68996f9d274495718e36e03a';
@@ -15,23 +16,21 @@ export class App {
         this.divContainer = <HTMLDivElement>document.getElementById("container");
         const closeIcon = <HTMLElement>document.getElementById('closeIcon');
         const arrData: string[] = this.getData();
-        const usedTowns: string[] = arrData; 
+        this.usedTowns = arrData; 
 
         for (let elem of arrData) {
             this.generateInfo(elem);
         }
 
-        console.log(usedTowns);
+        console.log(this.usedTowns);
         
-        // closeIcon.addEventListener('click', () => {
-            
-        // })
+        
 
         this.mainBtn.addEventListener('click', () => {
             let isInclude = false;
             this.cityName = (<HTMLInputElement>document.getElementById("input")).value.toLowerCase();
 
-            for (let elem of usedTowns) {
+            for (let elem of this.usedTowns) {
                 elem === this.cityName ? isInclude = true : isInclude;
             }
 
@@ -39,8 +38,8 @@ export class App {
 
             this.generateInfo(this.cityName);
             
-            usedTowns.push(this.cityName);
-            this.saveData([...usedTowns]);
+            
+            this.saveData([...this.usedTowns]);
         }) 
         
     }
@@ -54,6 +53,7 @@ export class App {
         const weatherResponse = await fetch(openWeatherUrl);
         const weatherData = await weatherResponse.json();
         console.log(weatherData);
+        
         return weatherData;
     }
     saveData(data: any) {
@@ -70,10 +70,12 @@ export class App {
     generateInfo(city: string) {
         this.getWeather(city)
             .then(data => {
+                // if (this.usedTowns.includes(data.id) ) return;
+                // this.usedTowns.push(data.id);
                 this.div = document.createElement("div");
                 this.div.id = 'weatherBox';
                 this.div.innerHTML = `
-                    <i id="closeIcon" class="far fa-window-close fa-lg"></i>
+                    <i onClick="removeBox()" class="far fa-window-close fa-lg"></i>
                     <span>Miasto: ${data.name}</span>
                     <span>Kraj: ${data.sys.country}</span>
                     <span>Temperatura: ${Math.round(data.main.temp - 273.15)}°C</span>
