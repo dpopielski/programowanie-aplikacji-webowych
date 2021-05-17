@@ -3,15 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Starter</title>
+    <title>Notekeep</title>
   </head>
   <body>
-    Co by tu kliknąć...
     <script src="index.js"></script>
     <section>
-      <article>
-        <div></div>
-      </article>
+      <main>
+        <div class="note">
+          <div class="note__wrapper">
+            <div class="note__title-container">
+              <input
+                id="noteTitle"
+                class="note__title"
+                type="text"
+                placeholder="Tytuł"
+              />
+            </div>
+            <div class="note__text-container">
+              <input
+                class="note__text"
+                type="text"
+                placeholder="Dodaj notatkę"
+              />
+            </div>
+            <div class="note__settings">
+              <button id="addBtn" type="submit">Dodaj</button>
+            </div>
+          </div>
+        </div>
+        <div id="notes" class="notes"></div>
+      </main>
     </section>
   </body>
 </html>
