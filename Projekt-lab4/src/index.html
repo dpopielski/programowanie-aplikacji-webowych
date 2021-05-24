@@ -7,24 +7,51 @@
   </head>
   <body>
     <section>
+      <aside>
+        <div>
+          <a href=""></a>
+        </div>
+        <div>
+          <a href=""></a>
+        </div>
+        <div>
+          <a href=""></a>
+        </div>
+        <div>
+          <a href=""></a>
+        </div>
+      </aside>
+    </section>
+    <section>
       <main>
         <div class="note">
           <div class="note__wrapper">
             <div class="note__title-container">
-              <input
+              <div
                 id="noteTitle"
                 class="note__title"
-                type="text"
-                placeholder="Tytuł"
-              />
+                contenteditable="true"
+                aria-multiline="true"
+                role="textbox"
+                style
+                tabindex="0"
+                spellcheck="true"
+                aria-label="Tytuł"
+              ></div>
             </div>
             <div class="note__text-container">
-              <input
+              <div
+                dir="ltr"
                 id="noteText"
                 class="note__text"
-                type="text"
-                placeholder="Dodaj notatkę"
-              />
+                contenteditable="true"
+                aria-multiline="true"
+                role="textbox"
+                style
+                aria-label="Utwórz notatkę..."
+                tabindex="0"
+                spellcheck="true"
+              ></div>
             </div>
             <div class="note__settings">
               <button id="addBtn" type="submit">Dodaj</button>
@@ -34,6 +61,7 @@
         <div id="notes" class="notes"></div>
       </main>
     </section>
+
     <script src="index.js"></script>
   </body>
 </html>
