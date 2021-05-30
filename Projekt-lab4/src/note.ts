@@ -25,8 +25,19 @@ export class Note {
         this.divEl.setAttribute('role', 'textbox');
         this.divEl.setAttribute('dir', 'ltr');
         this.divEl.innerHTML = `
-            <h2>${this.noteTitle}</h2>
-            <span>${this.noteText}</span>
+            <div 
+                class="notes__inner-title"
+                contenteditable="false"
+                aria-multiline="true"
+                role="textbox"
+
+            >${this.noteTitle}</div>
+            <div 
+                class="notes__inner-text"
+                contenteditable="false"
+                aria-multiline="true"
+                role="textbox"
+            >${this.noteText}</div>
         `;
         this.divEl.style.border = "1px solid #fff";
         this.divEl.style.minWidth = "50px";
