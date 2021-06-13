@@ -4,63 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notekeep</title>
+    <link rel="icon" href="assets/post-it.png">
   </head>
   <body>
+    <header>
+      <h1>Notekeep</h1>
+    </header>
+
     <section>
-      <aside>
-        <div>
-          <a href=""></a>
-        </div>
-        <div>
-          <a href=""></a>
-        </div>
-        <div>
-          <a href=""></a>
-        </div>
-        <div>
-          <a href=""></a>
-        </div>
-      </aside>
-    </section>
-    <section>
-      <main>
-        <div class="note">
-          <div class="note__wrapper">
-            <div class="note__title-container">
-              <div
+        <div class="note-creator">
+          <input
                 id="noteTitle"
-                class="note__title"
-                contenteditable="true"
-                aria-multiline="true"
-                role="textbox"
-                style
-                tabindex="0"
-                spellcheck="true"
-                aria-label="Tytuł"
-              ></div>
-            </div>
-            <div class="note__text-container">
-              <div
-                dir="ltr"
+                class="note-creator__title"
+                placeholder="Tytuł"
+                spellcheck="false"
+                type="text"
+          ></input>
+          <textarea
                 id="noteText"
-                class="note__text"
-                contenteditable="true"
-                aria-multiline="true"
-                role="textbox"
-                style
-                aria-label="Utwórz notatkę..."
-                tabindex="0"
-                spellcheck="true"
-              ></div>
-            </div>
-            <div class="note__settings">
-              <button id="addBtn" type="submit">Dodaj</button>
-            </div>
+                class="note-creator__text"
+                placeholder="Utwórz notatkę..."
+                spellcheck="false"
+          ></textarea>
+          <div class="note-creator__options">
+            <button id="addBtn" class="note-creator__btn" type="submit">Dodaj</button>
           </div>
         </div>
-        <div id="notes" class="notes"></div>
-      </main>
     </section>
+
+    <article>
+      <div id="notes" class="notes-container"></div>
+    </article>
 
     <script src="index.js"></script>
   </body>
