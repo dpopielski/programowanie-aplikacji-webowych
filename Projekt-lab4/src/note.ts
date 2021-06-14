@@ -3,35 +3,38 @@ export class Note {
     noteText: string;
     divEl: HTMLDivElement; 
     addBtn: HTMLButtonElement;
-    notes = <HTMLDivElement>document.getElementById("notes");
+    notes: HTMLDivElement;
     noteBody: HTMLTextAreaElement;
 
     constructor() {
-        this.noteBody = <HTMLTextAreaElement>document.getElementById("noteText");
-        this.addBtn = <HTMLButtonElement>document.getElementById("addBtn");
-        this.addBtn.addEventListener("click", () => {
-            this.noteTitle = (<HTMLInputElement>document.getElementById("noteTitle")).value;
-            this.noteText = (<HTMLTextAreaElement>document.getElementById("noteText")).value;
-            this.createNote(this.noteTitle, this.noteText);
-            this.notes.appendChild(this.divEl);
-            this.clearNoteCreator();
-        });
-        this.noteBody.addEventListener('input', () => {
-			this.noteBody.style.height = '48px';
-			this.noteBody.style.height = `${this.noteBody.scrollHeight}px`;
-		});
-        
+        this.getElements();
+        this.addEvents();
+    }
+    
+    getElements() {
+        this.addBtn = document.getElementById("addBtn") as HTMLButtonElement;
+        this.notes = document.getElementById("notes") as HTMLDivElement;
+        this.noteBody = document.getElementById("noteText") as HTMLTextAreaElement;
+        this.noteTitle = (<HTMLInputElement>document.getElementById("noteTitle")).value;
+        this.noteText = (<HTMLTextAreaElement>document.getElementById("noteText")).value;
     }
 
-    createNote(noteTitle: string, noteText: string) {
+    addEvents() {
+        this.addBtn.addEventListener("click", () => this.addNote());
+
+        this.noteBody.addEventListener('input', () => {
+            this.noteBody.style.height = '48px';
+			this.noteBody.style.height = `${this.noteBody.scrollHeight}px`;
+		});
+    }
+
+    createNote() {
         this.divEl = document.createElement("div");
         this.divEl.className = "notes";
-        // this.preEl.setAttribute('contenteditable', 'false');
-        // this.preEl.setAttribute('aria-multiline', 'true');
-        // this.preEl.setAttribute('role', 'textbox');
-        // this.preEl.setAttribute('dir', 'ltr');
+
         this.divEl.innerHTML = `
-            <a class="notes__inner-img"><img src="./assets/close.png" alt=""></a>
+            <a class="notes__inner-pinImg"><img src="./assets/push-pin.png" alt=""></a>
+            <a class="notes__inner-deleteImg"><img src="./assets/delete.png" alt=""></a>
             <h3 
                 class="notes__inner-title"
             >${this.noteTitle}</h3>
@@ -39,6 +42,8 @@ export class Note {
                 class="notes__inner-text"
             >${this.noteText}</pre>
         `;
+
+        //styles
         this.divEl.style.border = "1px solid gray";
         this.divEl.style.borderRadius = "10px";
         this.divEl.style.minWidth = "300px";
@@ -48,6 +53,13 @@ export class Note {
         this.divEl.style.padding = "10px";
         this.divEl.style.color = "#e8eaed";
         this.divEl.style.outline = "none";
+    }
+
+    addNote() {
+        this.getElements();
+        this.createNote();
+        this.notes.appendChild(this.divEl);
+        this.clearNoteCreator();
     }
 
     clearNoteCreator() {

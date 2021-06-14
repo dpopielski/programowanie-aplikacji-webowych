@@ -78,20 +78,32 @@ section {
   &__inner-title {
     display: block;
     padding: 10px;
+    overflow-wrap: break-word;
   }
 
   &__inner-text {
     display: block;
     padding: 10px;
+    overflow-wrap: break-word;
   }
 
-  &__inner-img {
+  &__inner-deleteImg {
     position: absolute;
     top: 10px;
     right: 10px;
-
+    cursor: pointer;
     img {
-      color: #fff;
+      height: 15px;
+      width: 15px;
+    }
+  }
+
+  &__inner-pinImg {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+    cursor: pointer;
+    img {
       height: 15px;
       width: 15px;
     }
