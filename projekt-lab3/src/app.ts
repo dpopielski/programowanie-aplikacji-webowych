@@ -6,7 +6,9 @@ export class App {
     divContainer: HTMLDivElement;
     divEl: HTMLDivElement;
     div: HTMLDivElement;
-    usedTowns: string[] = [];
+    usedTowns: number[] = [];
+    townsData: string[] = [];
+    btnClearStorage: HTMLButtonElement;
 
 
     opwApiKey = '5b79fbaa68996f9d274495718e36e03a';
@@ -15,39 +17,29 @@ export class App {
         this.mainBtn = <HTMLButtonElement>document.getElementById("mainBtn");
         this.divContainer = <HTMLDivElement>document.getElementById("container");
         const closeIcon = <HTMLElement>document.getElementById('closeIcon');
-        const arrData: string[] = this.getData();
-        this.usedTowns = arrData; 
+        this.btnClearStorage = <HTMLButtonElement>document.getElementById('#clearStorage');
 
-        for (let elem of arrData) {
-            this.generateInfo(elem);
+        this.townsData = this.getData();
+
+        for (let town of this.townsData) {
+            this.generateInfo(town);
         }
 
-        console.log(this.usedTowns);
-        
-        
-
         this.mainBtn.addEventListener('click', () => {
-            let isInclude = false;
             this.cityName = (<HTMLInputElement>document.getElementById("input")).value.toLowerCase();
-
-            for (let elem of this.usedTowns) {
-                elem === this.cityName ? isInclude = true : isInclude;
-            }
-
-            if (isInclude) { return console.log("Takie miasto jest już dodane!") };
-
+            this.townsData.push(this.cityName);
             this.generateInfo(this.cityName);
-            
-            
-            this.saveData([...this.usedTowns]);
-        }) 
-        
+
+            this.saveData([...this.townsData]);
+        });
     }
+    
     async getCityInfo(city: string) {
         const weather = await this.getWeather(city);
         
         this.saveData(weather);
     }
+
     async getWeather(city: string): Promise<any> {
         const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${this.opwApiKey}`;
         const weatherResponse = await fetch(openWeatherUrl);
@@ -67,11 +59,11 @@ export class App {
             return {};
         }
     }
-    generateInfo(city: string) {
+    generateInfo(city: string) {    
         this.getWeather(city)
             .then(data => {
-                // if (this.usedTowns.includes(data.id) ) return;
-                // this.usedTowns.push(data.id);
+                if (this.usedTowns.includes(data.id) ) return;
+                this.usedTowns.push(data.id);
                 this.div = document.createElement("div");
                 this.div.id = 'weatherBox';
                 this.div.innerHTML = `

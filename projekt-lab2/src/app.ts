@@ -27,7 +27,7 @@ export class App {
         btnPlayChannel2.addEventListener('click', this.onPlayChannel2);
         const btnPlayChannel3 = document.querySelector('#playChannel3');
         btnPlayChannel3.addEventListener('click', this.onPlayChannel3);
-        this.playSoundOnClick();
+        // this.playSoundOnClick();
         this.getAudioTags();
     }
 
@@ -65,6 +65,8 @@ export class App {
         const key = ev.key;
         const time = ev.timeStamp;
         this.channel1.push({ key, time });
+        this.channel2.push({ key, time });
+        this.channel3.push({ key, time });
         this.playSound(key);
         console.log(this.channel1);
     }
@@ -110,12 +112,12 @@ export class App {
         }
     }
 
-    playSoundOnClick() {
-        for (let i = 0; i < 10; i++){
-            const soundBtns = document.querySelector(`#soundBtn${i}`);
-            soundBtns.addEventListener('click', () => {
+    // playSoundOnClick() {
+    //     for (let i = 0; i < 10; i++){
+    //         const soundBtns = document.querySelector(`#soundBtn${i}`);
+    //         soundBtns.addEventListener('click', () => {
                 
-            })
-        }
-    }
+    //         })
+    //     }
+    // }
 }
