@@ -1,7 +1,7 @@
-export class Note {
+export default class Note {
     noteTitle: string;
     noteText: string;
-    divEl: HTMLDivElement; 
+    divEl: HTMLDivElement;
     addBtn: HTMLButtonElement;
     notes: HTMLDivElement;
     noteBody: HTMLTextAreaElement;
@@ -10,7 +10,7 @@ export class Note {
         this.getElements();
         this.addEvents();
     }
-    
+
     getElements() {
         this.addBtn = document.getElementById("addBtn") as HTMLButtonElement;
         this.notes = document.getElementById("notes") as HTMLDivElement;
@@ -24,8 +24,8 @@ export class Note {
 
         this.noteBody.addEventListener('input', () => {
             this.noteBody.style.height = '48px';
-			this.noteBody.style.height = `${this.noteBody.scrollHeight}px`;
-		});
+            this.noteBody.style.height = `${this.noteBody.scrollHeight}px`;
+        });
     }
 
     createNote() {
@@ -72,7 +72,7 @@ export class Note {
         localStorage.setItem('divEl', JSON.stringify(data));
     }
 
-    
+
 }
 
 
