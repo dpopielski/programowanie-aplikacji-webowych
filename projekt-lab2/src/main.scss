@@ -105,9 +105,9 @@ body {
       cursor: pointer;
     }
 
-    &-button:hover {
+    &-button:focus {
       box-shadow: none;
-      transition: linear 0.3s;
+      transition: linear 0.1s;
     }
   }
 }

@@ -1,3 +1,5 @@
+const KEYS = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c'];
+
 export class App {
     boomSound: HTMLAudioElement;
     clapSound: HTMLAudioElement;
@@ -13,25 +15,50 @@ export class App {
     channel2: any[] = [];
     channel3: any[] = [];
     drumPadBtn: HTMLButtonElement;
+    channel1Start: number;
+    channel1Recording: boolean = false;
 
     constructor() {
         this.appStart();
     }
 
-    appStart(): void {
+    appStart() {
         this.onKeyDown = this.onKeyDown.bind(this);
         window.addEventListener('keydown', this.onKeyDown);
         const btnPlayChannel1 = document.querySelector('#playChannel1');
-        btnPlayChannel1.addEventListener('click', this.onPlayChannel1);
+        btnPlayChannel1.addEventListener('click', () => this.onPlayChannel1());
         const btnPlayChannel2 = document.querySelector('#playChannel2');
-        btnPlayChannel2.addEventListener('click', this.onPlayChannel2);
+        btnPlayChannel2.addEventListener('click', () => this.onPlayChannel2());
         const btnPlayChannel3 = document.querySelector('#playChannel3');
-        btnPlayChannel3.addEventListener('click', this.onPlayChannel3);
+        btnPlayChannel3.addEventListener('click', () => this.onPlayChannel3());
         // this.playSoundOnClick();
         this.getAudioTags();
+        const btnRec1 = document.getElementById('recBtn1');
+        btnRec1.addEventListener('click', () => this.handleRec1());
+        const btnRec2 = document.getElementById('recBtn2');
+        const btnRec3 = document.getElementById('recBtn3');
+        this.playSoundOnClick();
+    }
+
+    handleRec1() {
+        this.channel1Start = Date.now();
+        this.channel1Recording = !this.channel1Recording;
+        document.getElementById('recStatus1').innerText = this.channel1Recording ? 'On' : 'Off';
+        if (this.channel1Recording) {
+            this.channel1 = [];
+        }
+    }
+
+    handleRec2() {
+
+    }
+
+    handleRec3() {
+
     }
 
     onPlayChannel1(): void {
+        console.log(this.channel1);
         this.channel1.forEach(sound => {
             setTimeout(() => this.playSound(sound.key), sound.time);
         });
@@ -64,14 +91,14 @@ export class App {
     onKeyDown(ev: KeyboardEvent): void {
         const key = ev.key;
         const time = ev.timeStamp;
-        this.channel1.push({ key, time });
-        this.channel2.push({ key, time });
-        this.channel3.push({ key, time });
         this.playSound(key);
-        console.log(this.channel1);
     }
 
     playSound(key: string) {
+        if (this.channel1Recording) {
+            this.channel1.push({ key, time: Date.now() - this.channel1Start });
+        }
+
         switch (key) {
             case 'q':
                 this.boomSound.currentTime = 0;
@@ -112,12 +139,15 @@ export class App {
         }
     }
 
-    // playSoundOnClick() {
-    //     for (let i = 0; i < 10; i++){
-    //         const soundBtns = document.querySelector(`#soundBtn${i}`);
-    //         soundBtns.addEventListener('click', () => {
-                
-    //         })
-    //     }
-    // }
+    playSoundOnClick() {
+        for (let i = 1; i <= 9; i++) {
+            const soundBtn = document.querySelector(`#soundBtn${i}`);
+            soundBtn.addEventListener('click', () => {
+                this.playSound(KEYS[i]);
+            })
+            soundBtn.addEventListener('mouseup', (e) => {
+                setTimeout(() => (e.target as HTMLButtonElement).blur(), 100);
+            })
+        }
+    }
 }
