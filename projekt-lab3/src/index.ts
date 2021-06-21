@@ -1,4 +1,4 @@
 import { App } from './app';
 import './main.scss';
 
-const app = new App();
+(window as Window & typeof globalThis & { app: App }).app = new App();

@@ -16,22 +16,22 @@ export class App {
     constructor() {
         this.mainBtn = <HTMLButtonElement>document.getElementById("mainBtn");
         this.divContainer = <HTMLDivElement>document.getElementById("container");
-        const closeIcon = <HTMLElement>document.getElementById('closeIcon');
-        this.btnClearStorage = <HTMLButtonElement>document.getElementById('#clearStorage');
-
+        this.btnClearStorage = <HTMLButtonElement>document.getElementById('clearStorage');
+        
         this.townsData = this.getData();
 
         for (let town of this.townsData) {
             this.generateInfo(town);
         }
-
+        
         this.mainBtn.addEventListener('click', () => {
             this.cityName = (<HTMLInputElement>document.getElementById("input")).value.toLowerCase();
-            this.townsData.push(this.cityName);
             this.generateInfo(this.cityName);
 
             this.saveData([...this.townsData]);
         });
+
+        this.btnClearStorage.addEventListener('click', () => localStorage.clear());
     }
     
     async getCityInfo(city: string) {
@@ -44,7 +44,6 @@ export class App {
         const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${this.opwApiKey}`;
         const weatherResponse = await fetch(openWeatherUrl);
         const weatherData = await weatherResponse.json();
-        console.log(weatherData);
         
         return weatherData;
     }
@@ -56,25 +55,36 @@ export class App {
         if (data) {
             return JSON.parse(data);
         } else {
-            return {};
+            return [];
         }
     }
+
+    removeBox(id: number, name: string) {
+        this.townsData = this.townsData.filter((town: string) => town !== name);
+        this.saveData([...this.townsData]);
+        const wb = document.getElementById(`weatherBox-${id}`);
+        wb.parentElement.removeChild(wb);
+        console.log(this.townsData)
+    }
+
     generateInfo(city: string) {    
         this.getWeather(city)
             .then(data => {
+                const divEl = document.createElement("div");
                 if (this.usedTowns.includes(data.id) ) return;
                 this.usedTowns.push(data.id);
-                this.div = document.createElement("div");
-                this.div.id = 'weatherBox';
-                this.div.innerHTML = `
-                    <i onClick="removeBox()" class="far fa-window-close fa-lg"></i>
+                this.townsData.push(data.name);
+                divEl.id = `weatherBox-${data.id}`;
+                divEl.className = "weatherBox";
+                divEl.innerHTML = `
+                    <i onClick="app.removeBox(${data.id},'${data.name}')" class="far fa-window-close fa-lg"></i>
                     <span>Miasto: ${data.name}</span>
                     <span>Kraj: ${data.sys.country}</span>
                     <span>Temperatura: ${Math.round(data.main.temp - 273.15)}°C</span>
                     <span>Ciśnienie: ${data.main.pressure}hPa</span>
                     <span>Wiatr: ${data.wind.speed}km/h</span>
                 `;
-                this.divContainer.appendChild(this.div);
+                this.divContainer.appendChild(divEl);
             });       
     }
 }
