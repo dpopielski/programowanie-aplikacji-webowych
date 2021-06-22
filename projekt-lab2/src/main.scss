@@ -81,6 +81,11 @@ body {
         display: flex;
         justify-content: space-around;
         width: 100%;
+
+        span {
+          text-align: center;
+          width: 30px;
+        }
       }
     }
 

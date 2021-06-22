@@ -16,7 +16,11 @@ export class App {
     channel3: any[] = [];
     drumPadBtn: HTMLButtonElement;
     channel1Start: number;
+    channel2Start: number;
+    channel3Start: number;
     channel1Recording: boolean = false;
+    channel2Recording: boolean = false;
+    channel3Recording: boolean = false;
 
     constructor() {
         this.appStart();
@@ -31,12 +35,13 @@ export class App {
         btnPlayChannel2.addEventListener('click', () => this.onPlayChannel2());
         const btnPlayChannel3 = document.querySelector('#playChannel3');
         btnPlayChannel3.addEventListener('click', () => this.onPlayChannel3());
-        // this.playSoundOnClick();
         this.getAudioTags();
         const btnRec1 = document.getElementById('recBtn1');
         btnRec1.addEventListener('click', () => this.handleRec1());
         const btnRec2 = document.getElementById('recBtn2');
+        btnRec2.addEventListener('click', () => this.handleRec2());
         const btnRec3 = document.getElementById('recBtn3');
+        btnRec3.addEventListener('click', () => this.handleRec3());
         this.playSoundOnClick();
     }
 
@@ -50,11 +55,21 @@ export class App {
     }
 
     handleRec2() {
-
+        this.channel2Start = Date.now();
+        this.channel2Recording = !this.channel2Recording;
+        document.getElementById('recStatus2').innerText = this.channel2Recording ? 'On' : 'Off';
+        if (this.channel2Recording) {
+            this.channel2 = [];
+        }
     }
 
     handleRec3() {
-
+        this.channel3Start = Date.now();
+        this.channel3Recording = !this.channel3Recording;
+        document.getElementById('recStatus3').innerText = this.channel3Recording ? 'On' : 'Off';
+        if (this.channel3Recording) {
+            this.channel3 = [];
+        }
     }
 
     onPlayChannel1(): void {
@@ -97,6 +112,12 @@ export class App {
     playSound(key: string) {
         if (this.channel1Recording) {
             this.channel1.push({ key, time: Date.now() - this.channel1Start });
+        }
+        if (this.channel2Recording) {
+            this.channel2.push({ key, time: Date.now() - this.channel2Start });
+        }
+        if (this.channel3Recording) {
+            this.channel3.push({ key, time: Date.now() - this.channel3Start });
         }
 
         switch (key) {
